@@ -1,0 +1,71 @@
+@startuml
+title Каркас MVC — утилита «Сколько раз ты сказал „потом"»
+skinparam classAttributeIconSize 0
+skinparam backgroundColor #FFFFFF
+skinparam classHeaderBackgroundColor #EAF0F8
+skinparam classBorderColor #2E5A88
+skinparam arrowColor #2E5A88
+skinparam noteBackgroundColor #FFF9E0
+
+class Main {
+  + main(String[] args)
+}
+
+class LaterModel <<активная модель>> {
+  - age : int
+  - timesSaidLater : long
+  - support : PropertyChangeSupport
+  + addListener(PropertyChangeListener)
+  + removeListener(PropertyChangeListener)
+  + getAge() : int
+  + getTimesSaidLater() : long
+  + setAge(int)
+  - calculate(int) : long
+}
+
+class MainView <<представление>> {
+  - ageLabel : JLabel
+  - resultLabel : JLabel
+  - enterButton : JButton
+  - controller : Controller
+  + setController(Controller)
+  + propertyChange(PropertyChangeEvent)
+  + askAge() : Integer
+  + showError(String)
+}
+
+class InputDialog <<окно ввода>> {
+  - ageField : JTextField
+  - age : Integer
+  + getAge() : Integer
+}
+
+class Controller <<контроллер>> {
+  - model : LaterModel
+  - view : MainView
+  + Controller(LaterModel, MainView)
+  + onEnterData()
+}
+
+interface PropertyChangeListener
+
+Main ..> LaterModel : создаёт
+Main ..> MainView : создаёт
+Main ..> Controller : создаёт
+
+Controller o--> LaterModel : model (управляет)
+Controller o--> MainView : view (управляет)
+
+MainView o--> Controller : controller (делегирует события)
+MainView ..> InputDialog : открывает
+MainView ..|> PropertyChangeListener : реализует
+
+LaterModel ..> PropertyChangeListener : уведомляет (наблюдатель)
+
+note right of LaterModel
+  Активная модель: при изменении данных
+  самостоятельно рассылает уведомления
+  через PropertyChangeSupport
+end note
+
+@enduml
