@@ -14,17 +14,17 @@ title: "Sequence Diagram - Character Exchange"
 sequenceDiagram
   autonumber
 
-  %% ---- Notation comments (plain text; Mermaid has no per-text colouring) ----
-  Note over P,M: Actor: external entity (Player) interacting with the system.
-  Note over P,M: Lifeline: a participant over time; activation bar = busy period.
-  Note over P,M: Synchronous message: filled arrow, sender waits; return: dashed arrow.
-
   actor P as Player
   participant M as CharacterExchangeModal
   participant SLM as ShareLinkManager
   participant IC as ImportController
   participant SLS as ShareLinkService
   database LS as LinkStore
+
+  %% ---- Notation comments (plain text; Mermaid has no per-text colouring) ----
+  Note over P,M: Actor: external entity (Player) interacting with the system.
+  Note over P,M: Lifeline: a participant over time; activation bar = busy period.
+  Note over P,M: Synchronous message: filled arrow, sender waits; return: dashed arrow.
 
   %% ========== Flow A - open modal, load link, copy ==========
   P->>M: click "Exchange"
