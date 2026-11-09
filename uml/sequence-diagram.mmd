@@ -9,10 +9,18 @@ title: "Sequence Diagram - Character Exchange"
 %%   Flow B (import): paste URL -> validate -> resolve -> render,
 %%   with the error (revoked link) branch via alt/else.
 %% White background for GitHub light/dark themes.
+%% Note: activate/deactivate markers are intentionally omitted because
+%% branches would make Mermaid's static balance go negative and fail.
 %%=================================================================
 %%{init: {"theme": "base", "themeVariables": { "background": "#ffffff", "actorBkg": "#ffffff", "noteBkgColor": "#ffffff", "actorBorder": "#555555", "lineColor": "#444444" } } }%%
 sequenceDiagram
   autonumber
+
+  %% ---- Notation guide (comments; Mermaid can't color per-text) ----
+  %% Actor: external entity (Player) interacting with the system.
+  %% Lifeline: a participant over time.
+  %% Synchronous message: solid arrow ->; return: dashed arrow -->>.
+  %% alt/else: alternative branches guarded by conditions.
 
   actor P as Player
   participant M as CharacterExchangeModal
@@ -21,71 +29,40 @@ sequenceDiagram
   participant SLS as ShareLinkService
   participant LS as LinkStore
 
-  %% ---- Notation guide (comments; Mermaid can't color per-text) ----
-  %% Actor: external entity (Player) interacting with the system.
-  %% Lifeline: a participant over time; activation bar = busy period.
-  %% Synchronous message: filled arrow, sender waits; return: dashed arrow.
-  %% alt/else: alternative branches guarded by conditions.
-
   %% ========== Flow A - open modal, load link, copy ==========
   P->>M: click "Exchange"
-  activate M
   M->>SLM: requestActiveLink(characterId)
-  activate SLM
   SLM->>SLS: POST /characters/{id}/share-link
-  activate SLS
   SLS->>LS: getOrCreateActiveToken(characterId)
-  activate LS
   LS-->>SLS: token
-  deactivate LS
   SLS-->>SLM: url + token
-  deactivate SLS
   SLM-->>M: url + summary
-  deactivate SLM
   M-->>P: show modal (link readonly + summary)
-  deactivate M
 
   P->>M: click "Copy"
-  activate M
   M->>SLM: copyToClipboard(url)
-  activate SLM
   SLM->>SLM: navigator.clipboard.writeText(url)
   SLM-->>M: copied
-  deactivate SLM
   M-->>P: "Copied!" feedback
-  deactivate M
 
   %% ========== Flow B - import character (with alt) ==========
   P->>M: paste URL, click "Load"
-  activate M
   M->>IC: POST /characters/import {url}
-  activate IC
+  IC->>SLS: resolveToken(url)
+  SLS->>LS: lookup(token_hash)
+  LS-->>SLS: character_id | null
 
   alt valid URL on whitelist
-    IC->>SLS: resolveToken(url)
-    activate SLS
-    SLS->>LS: lookup(token_hash)
-    activate LS
-    LS-->>SLS: character_id | null
-    deactivate LS
-
     alt token found and active
       SLS-->>IC: character
-      deactivate SLS
       IC-->>M: 200 {character}
-      deactivate IC
       M-->>P: render imported character
     else token revoked / unknown
       SLS-->>IC: 410 Gone / null
-      deactivate SLS
       IC-->>M: 410 Gone
-      deactivate IC
       M-->>P: inline error "Link expired"
     end
   else URL not on whitelist
     IC-->>M: 400 Bad Request
-    deactivate IC
     M-->>P: inline error "Invalid URL"
   end
-
-  deactivate M
