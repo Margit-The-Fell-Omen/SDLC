@@ -2,57 +2,57 @@
 title: "State Machine - Character Exchange"
 ---
 %%=================================================================
-%% State Machine Diagram - Character Exchange
+%% State Machine - Character Exchange
 %% RPG Character Sheet Application (target v1.2)
-%% Two collaborating state machines in one composite state with two
-%% concurrent regions (separator "--"):
+%% Two concurrent regions inside one composite "context" state,
+%% separated by a "--" line (documented Mermaid concurrency syntax):
 %%   Region A - Modal (UI) lifecycle (frontend).
 %%   Region B - Share token lifecycle (backend).
-%% Traceable to SDD DV-005 "State Dynamics".
+%% White background for GitHub light/dark themes.
 %%=================================================================
-%% Force white background so the diagram is readable in GitHub dark/light theme.
 %%{init: {"theme": "base", "themeVariables": { "background": "#ffffff", "mainBkg": "#ffffff", "primaryColor": "#ffffff", "nodeBorder": "#555555", "lineColor": "#444444" } } }%%
 stateDiagram-v2
 
   state "CharacterExchange Orchestration" as context {
-    state "Modal (UI) lifecycle" as modal {
-      [*] --> Closed
-      Closed --> Opening : click "Exchange"
-      Opening --> Ready : link + summary loaded
 
-      state Ready {
-        Ready --> Copied : click "Copy"
-        Copied --> Ready : feedback shown ("Copied!", brief)
-        Ready --> Regenerating : click "Regenerate"
-        Regenerating --> Ready : new link rendered (old revoked)
-        Ready --> Importing : click "Load" (valid URL)
-        Importing --> Imported : character fetched
-        Importing --> Ready : import failed (inline error)
-        Imported --> Ready : character rendered; modal stays open
-      }
+    %% ---------- Region A: Modal (UI) lifecycle ----------
+    [*] --> Modal_Closed
 
-      Ready --> Closed : click "Close"/"X" (no import in progress)
-      Ready --> Closed : import aborted
-      Importing --> Closed : import completed or aborted
-      Closed --> [*] : modal destroyed
+    state "Modal_Closed" as Modal_Closed
+
+    Modal_Closed --> Modal_Opening : click "Exchange"
+    Modal_Opening --> Modal_Ready : link + summary loaded
+
+    state "Modal_Ready" as Modal_Ready {
+      Modal_Ready --> Modal_Copied : click "Copy"
+      Modal_Copied --> Modal_Ready : "Copied!" feedback
+      Modal_Ready --> Modal_Regenerating : click "Regenerate"
+      Modal_Regenerating --> Modal_Ready : new link, old revoked
+      Modal_Ready --> Modal_Importing : click "Load" (valid URL)
+      Modal_Importing --> Modal_Imported : character fetched
+      Modal_Importing --> Modal_Ready : import failed (inline error)
+      Modal_Imported --> Modal_Ready : rendered; modal stays open
     }
 
-    --  %% concurrency separator between the two regions
+    Modal_Ready --> Modal_Closed : click "Close"/"X" (no import in progress)
+    Modal_Ready --> Modal_Closed : import aborted
+    Modal_Importing --> Modal_Closed : import completed or aborted
+    Modal_Closed --> [*] : modal destroyed
 
-    state "Share token lifecycle" as token {
-      [*] --> Created
-      Created --> Active : token persisted in LinkStore
-      Active --> Revoked : regenerate issued (old token)
-      Active : GET /s/{token} -> 302 /characters/{id}
-      Revoked : GET /s/{token} -> 410 Gone
-      Revoked --> [*] : row purged (gc) / superseded
-    }
+    --
+    %% ---------- Region B: Share token lifecycle ----------
+    %% Region B is deliberately declared below the "--" so Mermaid
+    %% treats the two regions as concurrent states.
+
+    [*] --> Token_Created
+
+    state "Token_Created" as Token_Created
+    state "Token_Active" as Token_Active
+    state "Token_Revoked" as Token_Revoked
+
+    Token_Created --> Token_Active : token persisted in LinkStore
+    Token_Active --> Token_Revoked : regenerate issued (old token)
+    Token_Active : GET /s/{token} -> 302 /characters/{id}
+    Token_Revoked : GET /s/{token} -> 410 Gone
+    Token_Revoked --> [*] : row purged / superseded
   }
-
-  note right of context
-    Concurrency regions:
-    - Modal (UI): driven by user events.
-    - Share token: driven by backend lifecycle (issue / resolve / revoke).
-    A single "Regenerate" action triggers transitions in BOTH regions:
-    a new Active token is issued while the modal moves Ready -> Regenerating -> Ready.
-  end note

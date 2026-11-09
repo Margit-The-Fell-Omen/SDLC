@@ -8,17 +8,16 @@ title: "Sequence Diagram - Character Exchange"
 %%   Flow A (happy path): open modal + load link / copy.
 %%   Flow B (import): paste URL -> validate -> resolve -> render,
 %%   with the error (revoked link) branch via alt/else.
-%% Red text = comments explaining the UML notations used (best-effort
-%% in Mermaid: <font color="red"> in notes/alt labels).
-%% Force white background so the diagram is readable in GitHub dark/light theme.
-%%{init: {"theme": "base", "themeVariables": { "background": "#ffffff", "mainBkg": "#ffffff", "actorBkg": "#ffffff", "noteBkgColor": "#ffffff", "actorBorder": "#555555", "lineColor": "#444444" } } }%%
+%% White background for GitHub light/dark themes.
+%%=================================================================
+%%{init: {"theme": "base", "themeVariables": { "background": "#ffffff", "actorBkg": "#ffffff", "noteBkgColor": "#ffffff", "actorBorder": "#555555", "lineColor": "#444444" } } }%%
 sequenceDiagram
   autonumber
 
-  %% ---- Notation comments (red) ----
-  Note over P,M: <font color="red"><b>Actor:</color:red></font> external entity (Player) interacting with the system.
-  Note over P,M: <font color="red"><b>Lifeline:</color:red></font> a participant over time; <font color="red"><b>activation bar</color:red></font> = busy.
-  Note over P,M: <font color="red"><b>Synchronous msg:</color:red></font> filled arrow, sender waits; <font color="red"><b>return:</color:red></font> dashed arrow.
+  %% ---- Notation comments (plain text; Mermaid has no per-text colouring) ----
+  Note over P,M: Actor: external entity (Player) interacting with the system.
+  Note over P,M: Lifeline: a participant over time; activation bar = busy period.
+  Note over P,M: Synchronous message: filled arrow, sender waits; return: dashed arrow.
 
   actor P as Player
   participant M as CharacterExchangeModal
@@ -38,7 +37,7 @@ sequenceDiagram
   activate LS
   LS-->>SLS: token
   deactivate LS
-  SLS-->>SLM: {url, token}
+  SLS-->>SLM: url + token
   deactivate SLS
   SLM-->>M: url + summary
   deactivate SLM
@@ -61,7 +60,7 @@ sequenceDiagram
   M->>IC: POST /characters/import {url}
   activate IC
 
-  alt <font color="red">alt</font> valid URL on whitelist
+  alt valid URL on whitelist
     IC->>SLS: resolveToken(url)
     activate SLS
     SLS->>LS: lookup(token_hash)
@@ -69,20 +68,20 @@ sequenceDiagram
     LS-->>SLS: character_id | null
     deactivate LS
 
-    alt <font color="red">alt</font> token found and active
+    alt token found and active
       SLS-->>IC: character
       deactivate SLS
       IC-->>M: 200 {character}
       deactivate IC
       M-->>P: render imported character
-    else <font color="red">else</font> token revoked / unknown
+    else token revoked / unknown
       SLS-->>IC: 410 Gone / null
       deactivate SLS
       IC-->>M: 410 Gone
       deactivate IC
       M-->>P: inline error "Link expired"
     end
-  else <font color="red">else</font> URL not on whitelist
+  else URL not on whitelist
     IC-->>M: 400 Bad Request
     deactivate IC
     M-->>P: inline error "Invalid URL"
