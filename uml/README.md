@@ -34,6 +34,10 @@ The `.mmd` files are rendered with **Mermaid** (text → SVG/PNG):
   Wrap a `.mmd` file's contents in a ` ```mermaid ` fenced block (the `---title---` front
   matter can be dropped for GitHub preview).
 
+All four diagrams start with a Mermaid `%%{init}%%` directive that forces a **white
+background** (and dark node/line borders) so they stay readable on GitHub in both light and
+dark themes.
+
 The red notation comments in `sequence-diagram.mmd` use `<font color="red">` markup in note
 text and `alt`/`else` labels; this renders as color in most Mermaid renderers and is
 best-effort otherwise.
