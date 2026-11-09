@@ -1,10 +1,10 @@
 # Software Design Description
 ## For Character Exchange UI Feature
 
-Version 0.1  
+Version 0.2  
 Prepared by AI Assistant  
 RPG Character Sheet App Team  
-October 28, 2026
+November 2026
 
 ## Table of Contents
 <!-- TOC -->
@@ -25,6 +25,7 @@ October 28, 2026
   * [3.5 DV-004 Interaction](#35-dv-004-interaction)
   * [3.6 DV-005 State Dynamics](#36-dv-005-state-dynamics)
   * [3.7 DV-006 Dependency](#37-dv-006-dependency)
+  * [3.8 DV-007 UML Dynamic-Behavior Model](#38-dv-007-uml-dynamic-behavior-model)
 * [4. Decisions](#4-decisions)
 * [5. Appendixes](#5-appendixes)
 <!-- TOC -->
@@ -34,6 +35,7 @@ October 28, 2026
 | Name | Date | Reason For Changes | Version |
 |------|------|--------------------|---------|
 | AI Assistant | 2026-10-28 | Initial design based on SRS v0.2 (project-srs-en.md) | 0.1 |
+| AI Assistant | 2026-11-09 | Added UML dynamic-behavior model (use-case, activity, state, sequence) in §3.8 and reference artifacts in `uml/` | 0.2 |
 
 ## 1. Introduction
 
@@ -70,6 +72,7 @@ The feature builds on the authoritative requirements defined in `srs/project-srs
 | 2 | ARD-001 — `adr/adr-template.md` (opaque short tokens for share links) | Normative |
 | 3 | Design mockup — `srs/mockup_char_share_feature.jpg` | Informative |
 | 4 | Global App Style Guide v2.1 (flat dark theme, red accents) | Normative |
+| 5 | UML dynamic-behavior model — `uml/` (glossary, supplementary spec, use-case spec, Mermaid `.mmd` diagrams) | Normative |
 
 ### 1.5 Document Overview
 
@@ -219,6 +222,46 @@ Priority of developed functionality ranked from 10 (highest) to 50 (minimum), pe
 - **SRS Requirements:** REQ-FUNC-004, REQ-SEC-001, REQ-PERF-001
 - **Decision:** ADR-001
 - **More Information:** Adding or removing a backend endpoint ripples only through `ShareLinkManager` and `ImportController`.
+
+### 3.8 DV-007 UML Dynamic-Behavior Model
+
+- **ID:** DV-007-DynamicBehavior
+- **Title:** Dynamic behavior model of the system (UML)
+- **Viewpoint:** Context, Interaction, State Dynamics
+- **Representation:** Textual UML (Mermaid `.mmd`) diagrams of the system's dynamic behavior, each accompanied by a description. Mermaid has no native use-case/activity syntax, so those two are `flowchart`s; the state and sequence diagrams use native `stateDiagram-v2` and `sequenceDiagram`. Sources live in `uml/`; render instructions and traceability are in [`uml/README.md`](../uml/README.md). Vocabulary is defined in [`uml/glossary.md`](../uml/glossary.md) and supplemented by [`uml/supplementary-spec.md`](../uml/supplementary-spec.md).
+
+  **Actors and use cases.** Derived from the SRS (REQ-FUNC-001…005, REQ-SEC-001). Two actors:
+  * **Player** — opens the modal, shares/copies the active character link, imports a character by URL.
+  * **GM / Party member** — follows a shared link in the browser and bulk-imports party sheets.
+  The use-case model (see [`uml/use-case-diagram.mmd`](../uml/use-case-diagram.mmd) and
+  [`uml/use-case-spec.md`](../uml/use-case-spec.md)) defines UC-1…UC-9 with
+  `include`/`extend` relationships that mirror the DV-004 flows: *Copy* `include` *Display Share
+  Link*, *Display Share Link* `include` *Display Character Summary*, *Regenerate* `include`
+  *Display Share Link*, and *Handle Import Errors* `extend` *Import* (inline error handling).
+
+  **Activity diagram.** [`uml/activity-diagram.mmd`](../uml/activity-diagram.mmd) models the
+  modal runtime flow: open modal → load/generate link → render summary, then a decision on user
+  action (Copy / Regenerate / Import / Close). The Import branch contains a validity decision
+  node (whitelist check → resolve token → render or inline error). The modal stays open after
+  Copy / Regenerate / Import (loop back to the action decision).
+
+  **State diagram.** [`uml/state-diagram.mmd`](../uml/state-diagram.mmd) models two concurrent
+  regions in one composite state: the **modal (UI)** lifecycle (`Closed → Opening → Ready →
+  {Copied, Regenerating, Importing}` and back, `Ready/Importing → Closed`) and the **share-token**
+  lifecycle (`Created → Active → Revoked`). A single *Regenerate* action triggers transitions in
+  both regions: a new `Active` token is issued while the modal moves `Ready → Regenerating →
+  Ready`.
+
+  **Sequence diagram.** [`uml/sequence-diagram.mmd`](../uml/sequence-diagram.mmd) shows two
+  flows: (A) open modal/load link/copy and (B) import with an `alt` fragment for the valid /
+  revoked / invalid branches. Messages map one-to-one to the DV-003 API contracts and DV-002
+  components (`CharacterExchangeModal`, `ShareLinkManager`, `ImportController`,
+  `ShareLinkService`, `LinkStore`). Red text annotates the UML notation (actor, lifelines,
+  execution bar, synchronous vs. return messages, `alt`/`else` fragments).
+
+- **SRS Requirements:** REQ-FUNC-001 … REQ-FUNC-005, REQ-SEC-001, REQ-INT-001
+- **Decision:** ADR-001
+- **More Information:** Glossary (`uml/glossary.md`), supplementary spec (`uml/supplementary-spec.md`), use-case spec (`uml/use-case-spec.md`), and the four Mermaid `.mmd` diagrams.
 
 ## 4. Decisions
 

@@ -85,3 +85,64 @@ Share link encodes the character's primary key, e.g., `https://rpg.app/s/Ab3x9Y`
 * Affected requirements: REQ-FUNC-001 (display link), REQ-FUNC-002 (copy / regeneration), REQ-FUNC-004 (import by URL), REQ-SEC-001 (URL validation).
 * Affected SDD design elements: DV-002 (Composition — `ShareLinkService`, `LinkStore`), DV-003 (Interface — `GET /s/{token}`, regenerate/import endpoints), DV-006 (Dependency).
 * Related references: [Character Exchange UI Mockup](../srs/mockup_char_share_feature.jpg); SRS `project-srs-en.md`.
+
+---
+
+## How the UML behavior model is built and how it connects to this decision
+
+This section explains the *mechanism* used to construct the dynamic-behavior model and how the
+various UML diagrams are interrelated and trace back to ADR-001.
+
+### Building mechanism
+
+The whole model is written in **textual UML (Mermaid)**, stored as reusable `.mmd` sources
+under `uml/`. This is intentional: text diagrams are versioned in Git, diffable in PRs, and
+rendered natively by GitHub/GitLab or the Mermaid CLI whenever an image is needed, so the model
+stays in sync with the code and documents it represents. Mermaid has no native use-case or
+activity syntax, so those two are `flowchart`s; the state and sequence diagrams use native
+`stateDiagram-v2` and `sequenceDiagram`. Supporting artifacts are dedicated standalone files:
+
+* **Glossary** (`uml/glossary.md`) — a table of domain and modeling terms shared by the SRS, SDD, and ADR, kept in one place and referenced (not duplicated) elsewhere.
+* **Supplementary specification** (`uml/supplementary-spec.md`) — non-functional/global requirements (performance, security, usability, localization) that do not fit a single use case.
+* **Use-case specification** (`uml/use-case-spec.md`) — per-actor (1–2 lines) and per-use-case descriptions (explanation, preconditions, flow of events, postconditions).
+
+### How the diagrams are related
+
+1. **Use-case diagram** (`uml/use-case-diagram.mmd`) defines the system boundary and the
+   services it offers. It is the *entry point*: actors (**Player**, **GM / Party member**) and
+   use cases (UC-1…UC-8) are derived from the SRS requirements.
+2. **Activity diagram** (`uml/activity-diagram.mmd`) refines the *primary* use cases into
+   ordered actions and decision nodes (Copy / Regenerate / Import / Close, and the import
+   validity check), i.e. it specifies the **control flow** of UC-2…UC-5.
+3. **State diagram** (`uml/state-diagram.mmd`) captures the **stateful** behavior that the
+   activity diagram treats as atomic: the modal window lifecycle and the share-token lifecycle,
+   modeled as two concurrent regions in one composite state. ADR-001 directly determines the
+   token region — `Active → Revoked` is exactly the "regeneration sets `active = false`" step
+   from the Decision Outcome.
+4. **Sequence diagram** (`uml/sequence-diagram.mmd`) shows the **message exchange over time**
+   among the frontend/browser, backend components, and `LinkStore`. It is the "how it runs"
+   counterpart to the use-case "what is offered" view: its messages match the DV-003 API
+   contracts and DV-002 component responsibilities.
+
+### Where ADR-001 enters the model
+
+ADR-001 constrains every level of the behavior model:
+
+* **Use case level:** *Regenerate / Invalidate Share Link* (UC-4) and the *404/410* error in
+  *Import* (UC-5) express the revocability and anti-enumeration decisions.
+* **State level:** the `Active`/`Revoked` token states and the `410 Gone` on a revoked token
+  follow from "regeneration sets `active = false`" in the Decision Outcome.
+* **Sequence level:** the import flow's `alt` branch `token revoked / unknown → 410 Gone`
+  realizes ADR-001's revocation semantics at message level.
+
+### Traceability summary
+
+| Diagram | Connects to | Testifies |
+|---------|-------------|-----------|
+| Use-case | DV-001, SRS REQ-FUNC-001…005, REQ-SEC-001 | system boundary, offered services |
+| Activity | DV-004 (Interaction) | control flow of UC-2…UC-5 |
+| State | DV-005 (State Dynamics), ADR-001 | modal + token lifecycle, revocation |
+| Sequence | DV-003 (Interface), DV-002, ADR-001 | runtime message flows incl. error paths |
+
+Revisit this ADR if URL-length budget, revocation semantics, or the token entropy requirement
+change — any of these would ripple through the use-case, state, and sequence diagrams above.

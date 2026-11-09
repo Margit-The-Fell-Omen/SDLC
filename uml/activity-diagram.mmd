@@ -1,0 +1,71 @@
+---
+title: "Activity Diagram - Character Exchange"
+---
+%%=================================================================
+%% Activity Diagram - Character Exchange flow
+%% RPG Character Sheet Application (target v1.2)
+%% Mermaid has no native UML activity diagram; this is a flowchart
+%% modelling the modal control flow (open/copy/regenerate/import/close).
+%%=================================================================
+flowchart TD
+
+  start([Start])
+
+  act1["Player clicks 'Exchange'"]
+  act2["Open modal (CharacterExchangeModal)"]
+  act3["Request active share link (POST /api/v1/characters/{id}/share-link)"]
+  act4["Generate link in LinkStore (if none active)"]
+  act5["Render link (readonly) + summary card"]
+
+  %% ---- primary action decision ----
+  dec1{"What action does the user take?"}
+
+  copy1["Read displayed URL"]
+  copy2["Write URL to clipboard (navigator.clipboard.writeText)"]
+  copy3["Show 'Copied!' feedback"]
+
+  reg1["POST /share-link/regenerate"]
+  regdec{"Regeneration succeeded?"}
+  regok["Old link -> 410 Gone; show new link"]
+  regerr["Show error, keep old link"]
+
+  imp1["Paste URL and click 'Load'"]
+  impdec{"URL valid on origin whitelist?"}
+  imp2["POST /api/v1/characters/import"]
+  impdec2{"Token resolves to a character?"}
+  impok["Import character; render into the sheet"]
+  imperr1["Show inline error ('Link expired' - 404/410)"]
+  imperr2["Show inline error ('Invalid URL' - 400)"]
+
+  close1{"Import in progress?"}
+  close2["Complete or abort import first"]
+  close3["Close modal (no state changes)"]
+  stop1([Stop])
+
+  start --> act1 --> act2 --> act3 --> act4 --> act5 --> dec1
+
+  %% copy branch (modal stays open -> loops back to dec1)
+  dec1 -- Copy --> copy1 --> copy2 --> copy3
+  copy3 -. modal stays open .-> dec1
+
+  %% regenerate branch
+  dec1 -- Regenerate --> reg1 --> regdec
+  regdec -- yes --> regok
+  regdec -- no --> regerr
+  regok -. modal stays open .-> dec1
+  regerr -. modal stays open .-> dec1
+
+  %% import branch (with validity decision)
+  dec1 -- Import --> imp1 --> impdec
+  impdec -- yes --> imp2 --> impdec2
+  impdec -- no --> imperr2
+  impdec2 -- yes --> impok
+  impdec2 -- no --> imperr1
+  impok -. modal stays open .-> dec1
+  imperr1 -. modal stays open .-> dec1
+  imperr2 -. modal stays open .-> dec1
+
+  %% close branch
+  dec1 -- "Close / X" --> close1
+  close1 -- yes --> close2 --> close3 --> stop1
+  close1 -- no --> close3 --> stop1

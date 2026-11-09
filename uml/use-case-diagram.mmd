@@ -1,0 +1,54 @@
+---
+title: "Use-Case Diagram - Character Exchange"
+---
+%%=================================================================
+%% Use-Case Diagram - Character Exchange
+%% RPG Character Sheet Application (target v1.2)
+%% Rendered as a Mermaid flowchart (Mermaid has no native use-case
+%% diagram; actors + use cases + include/extend are shown as nodes).
+%%=================================================================
+flowchart LR
+
+  %% ---- Actors (each with a 1-2 line role description in a note) ----
+  P["Player"]
+  P_note["Role (1-2 lines): opens the Character Exchange modal; shares / copies the active character link; imports another player's character by URL"]
+
+  G["GM / Party member"]
+  G_note["Role (1-2 lines): follows a share link in a browser to view a character; imports multiple party sheets for campaign management"]
+
+  P -.-> P_note
+  G -.-> G_note
+
+  %% ---- System boundary ----
+  subgraph SY["RPG Character Sheet App - Character Exchange subsystem"]
+    direction TB
+    UC1(["UC-1: Open Character Exchange Modal"])
+    UC2(["UC-2: Display Share Link"])
+    UC3(["UC-3: Copy Link to Clipboard"])
+    UC4(["UC-4: Regenerate / Invalidate Share Link"])
+    UC5(["UC-5: Import Character by URL"])
+    UC6(["UC-6: Display Character Summary"])
+    UC7(["UC-7: Close Modal"])
+    UC8(["UC-8: Open Shared Character Link"])
+    UC9(["UC-9: Handle Import Errors"])
+  end
+
+  %% ---- Actor <-> use case associations ----
+  P --- UC1
+  P --- UC2
+  P --- UC3
+  P --- UC4
+  P --- UC5
+  P --- UC6
+  P --- UC7
+
+  G --- UC8
+  G --- UC5
+
+  %% ---- include relationships (diamond, dashed) ----
+  UC2 -. include: summary needed for the link .-> UC6
+  UC3 -. include: uses the displayed link .-> UC2
+  UC4 -. include: shows the new link .-> UC2
+
+  %% ---- extend relationship ----
+  UC9 -. extend: error path on invalid/expired URL .-> UC5

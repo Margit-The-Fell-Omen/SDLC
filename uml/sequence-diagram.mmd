@@ -1,0 +1,90 @@
+---
+title: "Sequence Diagram - Character Exchange"
+---
+%%=================================================================
+%% Sequence Diagram - Character Exchange
+%% RPG Character Sheet Application (target v1.2)
+%% Two flows:
+%%   Flow A (happy path): open modal + load link / copy.
+%%   Flow B (import): paste URL -> validate -> resolve -> render,
+%%   with the error (revoked link) branch via alt/else.
+%% Red text = comments explaining the UML notations used (best-effort
+%% in Mermaid: <font color="red"> in notes/alt labels).
+%%=================================================================
+sequenceDiagram
+  autonumber
+
+  %% ---- Notation comments (red) ----
+  Note over P,M: <font color="red"><b>Actor:</color:red></font> external entity (Player) interacting with the system.
+  Note over P,M: <font color="red"><b>Lifeline:</color:red></font> a participant over time; <font color="red"><b>activation bar</color:red></font> = busy.
+  Note over P,M: <font color="red"><b>Synchronous msg:</color:red></font> filled arrow, sender waits; <font color="red"><b>return:</color:red></font> dashed arrow.
+
+  actor P as Player
+  participant M as CharacterExchangeModal
+  participant SLM as ShareLinkManager
+  participant IC as ImportController
+  participant SLS as ShareLinkService
+  database LS as LinkStore
+
+  %% ========== Flow A - open modal, load link, copy ==========
+  P->>M: click "Exchange"
+  activate M
+  M->>SLM: requestActiveLink(characterId)
+  activate SLM
+  SLM->>SLS: POST /characters/{id}/share-link
+  activate SLS
+  SLS->>LS: getOrCreateActiveToken(characterId)
+  activate LS
+  LS-->>SLS: token
+  deactivate LS
+  SLS-->>SLM: {url, token}
+  deactivate SLS
+  SLM-->>M: url + summary
+  deactivate SLM
+  M-->>P: show modal (link readonly + summary)
+  deactivate M
+
+  P->>M: click "Copy"
+  activate M
+  M->>SLM: copyToClipboard(url)
+  activate SLM
+  SLM->>SLM: navigator.clipboard.writeText(url)
+  SLM-->>M: copied
+  deactivate SLM
+  M-->>P: "Copied!" feedback
+  deactivate M
+
+  %% ========== Flow B - import character (with alt) ==========
+  P->>M: paste URL, click "Load"
+  activate M
+  M->>IC: POST /characters/import {url}
+  activate IC
+
+  alt <font color="red">alt</font> valid URL on whitelist
+    IC->>SLS: resolveToken(url)
+    activate SLS
+    SLS->>LS: lookup(token_hash)
+    activate LS
+    LS-->>SLS: character_id | null
+    deactivate LS
+
+    alt <font color="red">alt</font> token found and active
+      SLS-->>IC: character
+      deactivate SLS
+      IC-->>M: 200 {character}
+      deactivate IC
+      M-->>P: render imported character
+    else <font color="red">else</font> token revoked / unknown
+      SLS-->>IC: 410 Gone / null
+      deactivate SLS
+      IC-->>M: 410 Gone
+      deactivate IC
+      M-->>P: inline error "Link expired"
+    end
+  else <font color="red">else</font> URL not on whitelist
+    IC-->>M: 400 Bad Request
+    deactivate IC
+    M-->>P: inline error "Invalid URL"
+  end
+
+  deactivate M

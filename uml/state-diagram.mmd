@@ -1,0 +1,56 @@
+---
+title: "State Machine - Character Exchange"
+---
+%%=================================================================
+%% State Machine Diagram - Character Exchange
+%% RPG Character Sheet Application (target v1.2)
+%% Two collaborating state machines in one composite state with two
+%% concurrent regions (separator "--"):
+%%   Region A - Modal (UI) lifecycle (frontend).
+%%   Region B - Share token lifecycle (backend).
+%% Traceable to SDD DV-005 "State Dynamics".
+%%=================================================================
+stateDiagram-v2
+
+  state "CharacterExchange Orchestration" as context {
+    state "Modal (UI) lifecycle" as modal {
+      [*] --> Closed
+      Closed --> Opening : click "Exchange"
+      Opening --> Ready : link + summary loaded
+
+      state Ready {
+        Ready --> Copied : click "Copy"
+        Copied --> Ready : feedback shown ("Copied!", brief)
+        Ready --> Regenerating : click "Regenerate"
+        Regenerating --> Ready : new link rendered (old revoked)
+        Ready --> Importing : click "Load" (valid URL)
+        Importing --> Imported : character fetched
+        Importing --> Ready : import failed (inline error)
+        Imported --> Ready : character rendered; modal stays open
+      }
+
+      Ready --> Closed : click "Close"/"X" (no import in progress)
+      Ready --> Closed : import aborted
+      Importing --> Closed : import completed or aborted
+      Closed --> [*] : modal destroyed
+    }
+
+    --  %% concurrency separator between the two regions
+
+    state "Share token lifecycle" as token {
+      [*] --> Created
+      Created --> Active : token persisted in LinkStore
+      Active --> Revoked : regenerate issued (old token)
+      Active : GET /s/{token} -> 302 /characters/{id}
+      Revoked : GET /s/{token} -> 410 Gone
+      Revoked --> [*] : row purged (gc) / superseded
+    }
+  }
+
+  note right of context
+    Concurrency regions:
+    - Modal (UI): driven by user events.
+    - Share token: driven by backend lifecycle (issue / resolve / revoke).
+    A single "Regenerate" action triggers transitions in BOTH regions:
+    a new Active token is issued while the modal moves Ready -> Regenerating -> Ready.
+  end note
