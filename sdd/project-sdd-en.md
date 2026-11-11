@@ -2,7 +2,6 @@
 ## For Character Exchange UI Feature
 
 Version 0.2  
-Prepared by AI Assistant  
 RPG Character Sheet App Team  
 November 2026
 

@@ -1,7 +1,7 @@
 ---
 status: "accepted"
 date: 2026-10-28
-decision-makers: AI Assistant
+decision-makers: Tim Tomashevski
 consulted: Backend Lead; Product Owner
 informed: Frontend Team; QA Team
 ---
