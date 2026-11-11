@@ -10,13 +10,13 @@ informed: Frontend Team; QA Team
 
 ## Context and Problem Statement
 
-The Character Exchange feature lets players share the currently active character by a unique URL and import another player's character from a pasted link. The URL must be **short (at most 50 characters including protocol and domain)**, must be **revocable** (generating a new link immediately invalidates the previous one), and must be usable directly in a browser address bar (see SRS, REQ-FUNC-001, REQ-FUNC-002, REQ-FUNC-004).
+The Character Exchange feature lets players share the currently active character by a unique URL and import another player's character from a pasted link. The URL must be **short (at most 120 characters including protocol and domain)**, must be **revocable** (generating a new link immediately invalidates the previous one), and must be usable directly in a browser address bar (see SRS, REQ-FUNC-001, REQ-FUNC-002, REQ-FUNC-004).
 
 How should the share link be encoded so that it stays short, cannot be used to enumerate other players' characters, can be invalidated on demand, and remains safe to pass around in messengers and browser address bars?
 
 ## Decision Drivers
 
-* **URL length cap:** the full generated URL must not exceed 50 characters (SRS acceptance criterion, referenced by REQ-FUNC-001). Only ~30 characters remain for the token once the base URL is included.
+* **URL length cap:** the full generated URL must not exceed 120 characters (SRS acceptance criterion, referenced by REQ-FUNC-001). The production base URL `https://live-dnd-list.duckdns.org/s/` is 36 characters, leaving ~84 characters for the token.
 * **Revocability:** regenerating a link must invalidate the previous one immediately (SRS, REQ-FUNC-002).
 * **Security / anti-enumeration:** share links must not expose internal character IDs or player account data, so other users cannot guess or enumerate valid links (REQ-SEC-001).
 * **Direct browser navigation:** `GET /s/{token}` must resolve and redirect to the character sheet in view mode.
@@ -30,14 +30,15 @@ How should the share link be encoded so that it stays short, cannot be used to e
 
 ## Decision Outcome
 
-Chosen option: **Opaque random tokens stored in the link store**, because it is the only option that simultaneously satisfies the hard 50-character URL cap with cryptographically safe entropy, provides *instant* revocation on regeneration without key management or clock dependencies, and completely hides the underlying character identity (preventing link enumeration via predictable IDs).
+Chosen option: **Opaque random tokens stored in the link store**, because it is the only option that simultaneously satisfies the hard 120-character URL cap with cryptographically safe entropy, provides *instant* revocation on regeneration without key management or clock dependencies, and completely hides the underlying character identity (preventing link enumeration via predictable IDs).
 
-* URL layout: `https://rpg.app/s/{token}` → `https://` (8) + `rpg.app` (7) + `/s/` (3) = 18 characters fixed, leaving 32 for the token; a 22-character base62 token keeps the total well under the 50-character budget.
-* Lifecycle: a `share_links` row stores `token_hash`, `character_id`, `created_at`, `active`; regeneration sets `active = false` on the old row and inserts a new one, so the old token resolves to `410 Gone`.
+* URL layout: production base `https://live-dnd-list.duckdns.org/s/` = 36 characters fixed, leaving 84 for the token; a 22-character base62 token keeps the total at ~58 characters, well under the 120-character budget. A configurable `app.frontend-base-url` keeps local/test environments within the same cap.
+* Lifecycle: a `share_links` row stores `token_hash`, `character_type`, `character_id`, `created_at`, `revoked`; regeneration sets `revoked = true` on the old row and inserts a new one, so the old token resolves to `410 Gone`.
+* Generalization: `character_type` (`DND14`, `DND24`, `VTM5`) is part of the row so the same service, token format, revocation, and public-resolution flow serve every ruleset. `DND14`/`DND24` are set during character creation from the chosen content edition (legacy/2014 vs. 2024) and persisted on the character; `VTM5` is reserved for the VTM module and reuses the identical contract when its sheets are built. The link service depends on an entity-agnostic contract (`ShareableCharacter`) rather than D&D-specific types.
 
 ### Consequences
 
-* Good, because links are short (< 50 chars), unguessable, and instantly revocable with a simple database update.
+* Good, because links are short (≤ 120 chars), unguessable, and instantly revocable with a simple database update.
 * Good, because the share identity is fully decoupled from the character ID, defeating enumeration attacks.
 * Good, because import is a single indexed lookup by token and requires no signature/secret management.
 * Bad, because a `share_links` store and an indexed token field must be maintained, and each shared-link open is one database round-trip.
@@ -45,7 +46,7 @@ Chosen option: **Opaque random tokens stored in the link store**, because it is 
 
 ### Confirmation
 
-* Unit/integration tests assert: generated URL length ≤ 50 characters; regenerated link returns `410 Gone` while the new link returns `200`; tokens are not sequential; `GET /s/{token}` with an unknown token returns `404`.
+* Unit/integration tests assert: generated URL length ≤ 120 characters; regenerated link returns `410 Gone` while the new link returns `200`; tokens are not sequential; `GET /s/{token}` with an unknown token returns `404`.
 * Code review enforces that no shareable URL exposes a raw character/player ID.
 * CI gate: security scan for enumerable URL patterns (e.g., sequential integers or UUID leaks).
 
@@ -66,7 +67,7 @@ Server picks a cryptographically random base62 string and stores token → chara
 Share link becomes `https://rpg.app/s/{base64url(JWT(characterId, exp, signature))}`.
 
 * Good, because link resolution needs no storage lookup — verify signature, read ID.
-* Bad, because a JWT carrying `characterId` as payload grows beyond the 50-character budget at useful entropy/expiry settings.
+* Bad, because a JWT carrying `characterId` as payload grows beyond the 120-character budget at useful entropy/expiry settings.
 * Bad, because invalidation on regeneration requires either a revocation list (`blacklist`) or short expiries, adding the very storage the option tried to avoid.
 * Bad, because signing keys must be managed, rotated, and kept consistent across the fleet.
 
@@ -81,7 +82,7 @@ Share link encodes the character's primary key, e.g., `https://rpg.app/s/Ab3x9Y`
 
 ## More Information
 
-* Feasibility check with the mockup confirms the fixed URL prefix lengths; the token budget of 32 characters is documented in SDD DV-001 / DV-005.
+* Feasibility check confirms the production fixed URL prefix length; the token budget of 84 characters (120-char cap) is documented in SDD DV-001 / DV-005.
 * Affected requirements: REQ-FUNC-001 (display link), REQ-FUNC-002 (copy / regeneration), REQ-FUNC-004 (import by URL), REQ-SEC-001 (URL validation).
 * Affected SDD design elements: DV-002 (Composition — `ShareLinkService`, `LinkStore`), DV-003 (Interface — `GET /s/{token}`, regenerate/import endpoints), DV-006 (Dependency).
 * Related references: [Character Exchange UI Mockup](../srs/mockup_char_share_feature.jpg); SRS `project-srs-en.md`.
