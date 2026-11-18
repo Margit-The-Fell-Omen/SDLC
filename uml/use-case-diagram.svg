@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-230 0 1650 1060" width="1650" height="1060" style="background-color:#ffffff">
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L10,5 L0,10 Z" fill="#333333" />
+  </marker>
+</defs>
+<circle cx="110" cy="394" r="11" fill="#ffffff" stroke="#333333" stroke-width="2" /><line x1="110" y1="405" x2="110" y2="432" stroke="#333333" stroke-width="2" /><line x1="94" y1="418" x2="126" y2="418" stroke="#333333" stroke-width="2" /><line x1="110" y1="432" x2="96" y2="454" stroke="#333333" stroke-width="2" /><line x1="110" y1="432" x2="124" y2="454" stroke="#333333" stroke-width="2" />
+<text x="110" y="474" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#111">Player</text>
+<circle cx="110" cy="774" r="11" fill="#ffffff" stroke="#333333" stroke-width="2" /><line x1="110" y1="785" x2="110" y2="812" stroke="#333333" stroke-width="2" /><line x1="94" y1="798" x2="126" y2="798" stroke="#333333" stroke-width="2" /><line x1="110" y1="812" x2="96" y2="834" stroke="#333333" stroke-width="2" /><line x1="110" y1="812" x2="124" y2="834" stroke="#333333" stroke-width="2" />
+<text x="110" y="854" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#111">GM / Party member</text>
+<rect x="-150" y="402.5" width="180" height="55" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="start" font-family="sans-serif" font-size="10.5" fill="#111"><tspan x="-141" y="420.5">Role: opens the Character</tspan><tspan x="-141" y="433.5">Exchange modal; shares /</tspan><tspan x="-141" y="446.5">copies the active character</tspan></text>
+<rect x="-150" y="782.5" width="180" height="55" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="start" font-family="sans-serif" font-size="10.5" fill="#111"><tspan x="-141" y="800.5">Role: follows a share link</tspan><tspan x="-141" y="813.5">in a browser to view a</tspan><tspan x="-141" y="826.5">character; imports multiple</tspan></text>
+<path d="M 108,430 L 30,430" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" />
+<path d="M 108,810 L 30,810" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" />
+<rect x="260" y="60" width="1100" height="940" rx="14" ry="14" fill="#fafafa" stroke="#333333" stroke-width="2" />
+<text x="282" y="92" font-family="sans-serif" font-size="15" font-weight="bold" fill="#111">RPG Character Sheet App - Character Exchange subsystem</text>
+<rect x="310" y="132" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="430" y="180">UC-1 Open Modal</tspan></text>
+<rect x="310" y="292" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="430" y="332">UC-2 Display</tspan><tspan x="430" y="348">Share Link</tspan></text>
+<rect x="310" y="452" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="430" y="500">UC-3 Copy Link</tspan></text>
+<rect x="310" y="612" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="430" y="652">UC-4 Regenerate</tspan><tspan x="430" y="668">Link</tspan></text>
+<rect x="310" y="772" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="430" y="820">UC-7 Close Modal</tspan></text>
+<rect x="710" y="212" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="830" y="252">UC-6 Display</tspan><tspan x="830" y="268">Summary</tspan></text>
+<rect x="710" y="532" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="830" y="572">UC-5 Import by</tspan><tspan x="830" y="588">URL</tspan></text>
+<rect x="710" y="692" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="830" y="732">UC-8 Open Shared</tspan><tspan x="830" y="748">Link</tspan></text>
+<rect x="1050" y="532" width="240" height="96" rx="48" ry="48" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1170" y="572">UC-9 Handle</tspan><tspan x="1170" y="588">Import Errors</tspan></text>
+<path d="M 128,390 L 200,390 L 200,180 L 310,180" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 128,400 L 214,400 L 214,340 L 310,340" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 128,410 L 228,410 L 228,500 L 310,500" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 128,420 L 242,420 L 242,660 L 310,660" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 128,430 L 256,430 L 256,820 L 310,820" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 128,440 L 270,440 L 270,260 L 710,260" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 128,450 L 284,450 L 284,568 L 710,568" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 128,770 L 296,770 L 296,740 L 710,740" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 128,800 L 300,800 L 300,592 L 710,592" fill="none" stroke="#333333" stroke-width="2" />
+<path d="M 430,452 L 430,388" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+<rect x="445.6" y="411" width="52.800000000000004" height="16" fill="#ffffff" />
+<text x="472" y="423" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#444">include</text>
+<path d="M 550,340 L 1000,340 L 1000,260 L 950,260" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+<rect x="753.6" y="323" width="52.800000000000004" height="16" fill="#ffffff" />
+<text x="780" y="335" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#444">include</text>
+<path d="M 550,660 L 600,660 L 600,326 L 550,326" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+<rect x="551.6" y="491" width="52.800000000000004" height="16" fill="#ffffff" />
+<text x="578" y="503" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#444">include</text>
+<path d="M 1050,580 L 950,580" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+<rect x="976.8" y="553" width="46.400000000000006" height="16" fill="#ffffff" />
+<text x="1000" y="565" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#444">extend</text>
+</svg>

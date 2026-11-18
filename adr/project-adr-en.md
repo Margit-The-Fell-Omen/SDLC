@@ -96,12 +96,16 @@ various UML diagrams are interrelated and trace back to ADR-001.
 
 ### Building mechanism
 
-The whole model is written in **textual UML (Mermaid)**, stored as reusable `.mmd` sources
-under `uml/`. This is intentional: text diagrams are versioned in Git, diffable in PRs, and
-rendered natively by GitHub/GitLab or the Mermaid CLI whenever an image is needed, so the model
-stays in sync with the code and documents it represents. Mermaid has no native use-case or
-activity syntax, so those two are `flowchart`s; the state and sequence diagrams use native
-`stateDiagram-v2` and `sequenceDiagram`. Supporting artifacts are dedicated standalone files:
+The whole model is maintained as **textual UML/Mermaid sources** (`.mmd`) under `uml/`, and
+rendered to **committed SVG images** (`.svg`). This is intentional: the text sources are
+versioned and diffable in PRs, while the committed SVGs are the authoritative renderings embedded
+in the README and SDD, so GitHub displays **exactly** the curated diagrams — right-angled
+connectors, aligned composite-border entry/exit, activation bars and end crosses — which
+Mermaid/Dagre/ELK cannot guarantee on their own. Regenerate everything with
+`uml/render-all.sh`. Mermaid has no native use-case or activity syntax, so those two are
+`flowchart`-based; the activity/state/use-case layouts are produced by the deterministic
+generators (`uml/gen-*.mjs`) and the sequence render is post-processed by
+`uml/fix-sequence-svg.mjs`. Supporting artifacts are dedicated standalone files:
 
 * **Glossary** (`uml/glossary.md`) — a table of domain and modeling terms shared by the SRS, SDD, and ADR, kept in one place and referenced (not duplicated) elsewhere.
 * **Supplementary specification** (`uml/supplementary-spec.md`) — non-functional/global requirements (performance, security, usability, localization) that do not fit a single use case.
@@ -109,18 +113,18 @@ activity syntax, so those two are `flowchart`s; the state and sequence diagrams 
 
 ### How the diagrams are related
 
-1. **Use-case diagram** (`uml/use-case-diagram.mmd`) defines the system boundary and the
+1. **Use-case diagram** (source `uml/use-case-diagram.mmd`, render `uml/use-case-diagram.svg`) defines the system boundary and the
    services it offers. It is the *entry point*: actors (**Player**, **GM / Party member**) and
    use cases (UC-1…UC-8) are derived from the SRS requirements.
-2. **Activity diagram** (`uml/activity-diagram.mmd`) refines the *primary* use cases into
+2. **Activity diagram** (source `uml/activity-diagram.mmd`, render `uml/activity-diagram.svg`) refines the *primary* use cases into
    ordered actions and decision nodes (Copy / Regenerate / Import / Close, and the import
    validity check), i.e. it specifies the **control flow** of UC-2…UC-5.
-3. **State diagram** (`uml/state-diagram.mmd`) captures the **stateful** behavior that the
+3. **State diagram** (source `uml/state-diagram.mmd`, render `uml/state-diagram.svg`) captures the **stateful** behavior that the
    activity diagram treats as atomic: the modal window lifecycle and the share-token lifecycle,
    modeled as two concurrent regions in one composite state. ADR-001 directly determines the
    token region — `Active → Revoked` is exactly the "regeneration sets `active = false`" step
    from the Decision Outcome.
-4. **Sequence diagram** (`uml/sequence-diagram.mmd`) shows the **message exchange over time**
+4. **Sequence diagram** (source `uml/sequence-diagram.mmd`, render `uml/sequence-diagram.svg`) shows the **message exchange over time**
    among the frontend/browser, backend components, and `LinkStore`. It is the "how it runs"
    counterpart to the use-case "what is offered" view: its messages match the DV-003 API
    contracts and DV-002 component responsibilities.

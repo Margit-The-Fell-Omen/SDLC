@@ -1,15 +1,14 @@
 # UML Dynamic-Behavior Model — Character Exchange Feature
 
-Textual UML model of the dynamic behavior of the **Character Exchange** feature of the
-RPG Character Sheet Application (target v1.2). Produced from the documentation (`srs/`,
-`sdd/`, `adr/`). All diagrams are written as **textual Mermaid** (`.mmd`), per the task
-requirement, so they are diffable, reviewable in PRs, and rendered natively by GitHub/GitLab
-or the Mermaid CLI.
+Model of the dynamic behavior of the **Character Exchange** feature of the RPG Character
+Sheet Application (target v1.2), produced from the documentation (`srs/`, `sdd/`, `adr/`).
 
-Note on notation mapping: Mermaid has **no native use-case or activity diagram** syntax, so
-those two are rendered as `flowchart`s (actors + use cases, and the modal control flow
-respectively); the **state** diagram uses native `stateDiagram-v2`, and the **sequence**
-diagram uses native `sequenceDiagram`.
+The diagrams are maintained as **textual UML / Mermaid sources** (`.mmd`) and rendered to
+**committed SVG images** (`.svg`). The SVGs are what GitHub shows (they are embedded in this
+README and in the SDD), so the pushed documentation renders **exactly** the curated diagrams
+(right-angled connectors, aligned composite borders, activation bars, end crosses, etc.).
+Mermaid cannot reproduce those hand-tuned layouts, which is why the rendered SVG is committed
+alongside the source.
 
 ## Contents
 
@@ -18,29 +17,55 @@ diagram uses native `sequenceDiagram`.
 | `glossary.md` | Project glossary — tabular, standalone artifact. |
 | `supplementary-spec.md` | Additional / supplementary (non-functional, global) specifications. |
 | `use-case-spec.md` | Actor descriptions (1–2 lines) and use-case descriptions (explanation, preconditions, flows, postconditions). |
-| `use-case-diagram.mmd` | Use-Case diagram (`flowchart`) — actors and use cases with `include`/`extend` relations. |
-| `activity-diagram.mmd` | Activity diagram (`flowchart`) — modal flow (open/copy/regenerate/import/close). |
-| `state-diagram.mmd` | State Machine diagram (`stateDiagram-v2`) — modal (UI) and share-token lifecycle (two concurrent regions). |
-| `sequence-diagram.mmd` | Sequence diagram (`sequenceDiagram`) — message flows for share/copy and import (red notation comments). |
+| `use-case-diagram.mmd` | Use-Case diagram source (Mermaid). Rendered → `use-case-diagram.svg`. |
+| `activity-diagram.mmd` | Activity diagram source (textual description). Rendered → `activity-diagram.svg`. |
+| `state-diagram.mmd` | State Machine diagram source (Mermaid). Rendered → `state-diagram.svg`. |
+| `sequence-diagram.mmd` | Sequence diagram source (Mermaid). Rendered → `sequence-diagram.svg`. |
+| `*.svg` | The committed rendered diagrams embedded below (what GitHub displays). |
+| `gen-*.mjs` | Deterministic orthogonal layout generators (activity / state / use-case). |
+| `fix-sequence-svg.mjs` | Post-processor for the sequence render (lifelines, activation, crosses). |
+| `render-all.sh` | Regenerates all four SVG files. |
 | `README.md` | This overview, render instructions, and traceability. |
 
-## How to render
+## Diagrams
 
-The `.mmd` files are rendered with **Mermaid** (text → SVG/PNG):
+### Use-Case
 
-* GitHub / GitLab render `.mmd` natively inside Markdown fenced blocks.
-* Local CLI: `mmdc -i use-case-diagram.mmd -o use-case-diagram.svg` (and the other three).
-* VS Code extension: "Mermaid Preview" / "Markdown Preview Mermaid Support".
-  Wrap a `.mmd` file's contents in a ` ```mermaid ` fenced block (the `---title---` front
-  matter can be dropped for GitHub preview).
+![Use-Case diagram](use-case-diagram.svg)
 
-All four diagrams start with a Mermaid `%%{init}%%` directive that forces a **white
-background** (and dark node/line borders) so they stay readable on GitHub in both light and
-dark themes.
+### Activity
 
-The red notation comments in `sequence-diagram.mmd` use `<font color="red">` markup in note
-text and `alt`/`else` labels; this renders as color in most Mermaid renderers and is
-best-effort otherwise.
+![Activity diagram](activity-diagram.svg)
+
+### State Machine
+
+![State Machine diagram](state-diagram.svg)
+
+### Sequence
+
+![Sequence diagram](sequence-diagram.svg)
+
+Actor and use-case descriptions are in [`use-case-spec.md`](use-case-spec.md); vocabulary is in
+[`glossary.md`](glossary.md) and [`supplementary-spec.md`](supplementary-spec.md).
+
+## How to render / regenerate
+
+Regenerate all committed SVGs in one command:
+
+```sh
+./render-all.sh
+```
+
+This writes `use-case-diagram.svg`, `activity-diagram.svg`, `state-diagram.svg` and
+`sequence-diagram.svg` in this folder, and re-run it after editing any `.mmd` or generator.
+
+For ad-hoc previews the individual scripts are also available:
+`render-usecase.sh`, `render-activity.sh`, `render-state.sh`, `render-sequence.sh`.
+
+> Why committed SVGs? Mermaid (Dagre/ELK) cannot guarantee the required geometry — right-angled
+> connectors, no crossings, aligned composite-border entry/exit, activation rectangles, end
+> crosses. The generators in this folder produce exact SVG, which is committed and embedded so
+> GitHub renders it identically. The `.mmd` files remain the editable textual sources.
 
 ## How the model was built
 

@@ -4,23 +4,21 @@ title: "Sequence Diagram - Character Exchange"
 %%=================================================================
 %% Sequence Diagram - Character Exchange
 %% RPG Character Sheet Application (target v1.2)
-%% Two flows:
+%% Two flows (no alt fragments; conditional outcomes are drawn as
+%% arrows fanning out from the single decision point IC):
 %%   Flow A (happy path): open modal + load link / copy.
-%%   Flow B (import): paste URL -> validate -> resolve -> render,
-%%   with the error (revoked link) branch via alt/else.
+%%   Flow B (import): paste URL -> validate -> resolve -> outcome.
 %% White background for GitHub light/dark themes.
-%% Note: activate/deactivate markers are intentionally omitted because
-%% branches would make Mermaid's static balance go negative and fail.
 %%=================================================================
-%%{init: {"theme": "base", "themeVariables": { "background": "#ffffff", "actorBkg": "#ffffff", "noteBkgColor": "#ffffff", "actorBorder": "#555555", "lineColor": "#444444" } } }%%
+%%{init: {"theme": "base", "themeVariables": { "background": "#ffffff", "actorBkg": "#ffffff", "noteBkgColor": "#ffffff", "actorBorder": "#555555", "lineColor": "#444444" }, "themeCSS": ".actor-line{stroke:#000000 !important;stroke-dasharray:4 4 !important;}" } } }%%
 sequenceDiagram
-  autonumber
 
   %% ---- Notation guide (comments; Mermaid can't color per-text) ----
   %% Actor: external entity (Player) interacting with the system.
   %% Lifeline: a participant over time.
-  %% Synchronous message: solid arrow ->; return: dashed arrow -->>.
-  %% alt/else: alternative branches guarded by conditions.
+  %% Synchronous message: solid arrow ->> ; return: dashed arrow -->> .
+  %% Branching: several arrows leave the same decision point.
+  %% Lifeline termination: "destroy" marks an X at the end of the line.
 
   actor P as Player
   participant M as CharacterExchangeModal
@@ -45,24 +43,30 @@ sequenceDiagram
   SLM-->>M: copied
   M-->>P: "Copied!" feedback
 
-  %% ========== Flow B - import character (with alt) ==========
+  %% ========== Flow B - import character ==========
+  %% Decision point: IC returns one of three outcomes below, all
+  %% drawn from the same point (no alt/else fragments).
   P->>M: paste URL, click "Load"
   M->>IC: POST /characters/import {url}
   IC->>SLS: resolveToken(url)
   SLS->>LS: lookup(token_hash)
   LS-->>SLS: character_id | null
 
-  alt valid URL on whitelist
-    alt token found and active
-      SLS-->>IC: character
-      IC-->>M: 200 {character}
-      M-->>P: render imported character
-    else token revoked / unknown
-      SLS-->>IC: 410 Gone / null
-      IC-->>M: 410 Gone
-      M-->>P: inline error "Link expired"
-    end
-  else URL not on whitelist
-    IC-->>M: 400 Bad Request
-    M-->>P: inline error "Invalid URL"
-  end
+  IC-->>M: 200 {character} (URL valid, token active)
+  M-->>P: render imported character
+
+  IC-->>M: 410 Gone (token revoked / unknown)
+  M-->>P: inline error "Link expired"
+
+  IC-->>M: 400 Bad Request (URL not on whitelist)
+  M-->>P: inline error "Invalid URL"
+
+  %% ========== Lifeline termination ==========
+  %% Vertical lifelines end with an X cross at the bottom of the
+  %% diagram instead of recurring label blocks.
+  destroy P
+  destroy M
+  destroy SLM
+  destroy IC
+  destroy SLS
+  destroy LS
