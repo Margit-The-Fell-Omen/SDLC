@@ -128,7 +128,7 @@ edge([[SX, BD(D3)], [SX, TD(D4)]], 'no');
 // ---------------- Branch 1: Copy (row at y = D1) ----------------
 {
   const y = D1;
-  const n1 = 540, n2 = 840, n3 = 1140;
+  const n1 = 600, n2 = 960, n3 = 1320;
   box(n1, y, 'Read URL');
   box(n2, y, 'Copy to clipboard');
   box(n3, y, "'Copied!' feedback");
@@ -140,7 +140,7 @@ edge([[SX, BD(D3)], [SX, TD(D4)]], 'no');
 // ---------------- Branch 2: Regenerate (row at y = D2) ----------------
 {
   const y = D2;
-  const n1 = 540, dec = 840, ok = 1140, err = 840, errY = D2 + 100;
+  const n1 = 600, dec = 960, ok = 1320, err = 960, errY = D2 + 160;
   box(n1, y, 'POST regenerate');
   diamond(dec, y, 'Success?');
   box(ok, y, 'Show new link');
@@ -154,7 +154,7 @@ edge([[SX, BD(D3)], [SX, TD(D4)]], 'no');
 // ---------------- Branch 3: Import (row at y = D3) ----------------
 {
   const y = D3;
-  const n1 = 540, dec = 840, n2 = 1140, dec2 = 1440, ok = 1740, errY = D3 + 100;
+  const n1 = 600, dec = 960, n2 = 1320, dec2 = 1680, ok = 2040, errY = D3 + 160;
   box(n1, y, 'Paste URL, Load');
   diamond(dec, y, 'URL valid?');
   box(n2, y, 'POST import');
@@ -174,7 +174,7 @@ edge([[SX, BD(D3)], [SX, TD(D4)]], 'no');
 // ---------------- Branch 4: Close (row at y = D4) ----------------
 {
   const y = D4;
-  const dec1 = 540, n2 = 840, n3 = 540, y3 = D4 + 110;
+  const dec1 = 600, n2 = 960, n3 = 600, y3 = D4 + 160;
   diamond(dec1, y, 'Import in progress?');
   box(n2, y, 'Complete/abort import');
   box(n3, y3, 'Close modal');
@@ -189,7 +189,7 @@ edge([[SX, BD(D3)], [SX, TD(D4)]], 'no');
 }
 
 // ---------------- Assemble ----------------
-const width = 1960;
+const width = 2280;
 const height = 1900;
 
 const svg = `<?xml version="1.0" encoding="UTF-8"?>

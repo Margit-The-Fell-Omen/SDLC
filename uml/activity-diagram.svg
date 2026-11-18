@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1960 1900" width="1960" height="1900" style="background-color:#ffffff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2280 1900" width="2280" height="1900" style="background-color:#ffffff">
 <defs>
   <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse">
     <path d="M0,0 L10,5 L0,10 Z" fill="#333333" />
   </marker>
 </defs>
-<rect x="0" y="0" width="1960" height="1900" fill="#ffffff" />
+<rect x="0" y="0" width="2280" height="1900" fill="#ffffff" />
 <rect x="60" y="32" width="200" height="56" rx="28" ry="28" fill="#ffffff" stroke="#333333" stroke-width="2" />
 <text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="160" y="60">Start</tspan></text>
 <rect x="40" y="122" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
@@ -38,73 +38,73 @@
 <text x="170" y="1035" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
 <path d="M 160,1230 L 160,1460" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
 <text x="170" y="1345" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
-<rect x="420" y="612" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="540" y="640">Read URL</tspan></text>
-<rect x="720" y="612" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="840" y="640">Copy to clipboard</tspan></text>
-<rect x="1020" y="612" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1140" y="640">'Copied!' feedback</tspan></text>
-<path d="M 300,640 L 420,640" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="360" y="632" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
-<path d="M 660,640 L 720,640" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<path d="M 960,640 L 1020,640" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<rect x="420" y="872" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="540" y="900">POST regenerate</tspan></text>
-<polygon points="840,840 980,900 840,960 700,900" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="840" y="900">Success?</tspan></text>
-<rect x="1020" y="872" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1140" y="900">Show new link</tspan></text>
-<rect x="720" y="972" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="840" y="1000">Show error</tspan></text>
-<path d="M 300,900 L 420,900" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="360" y="892" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
-<path d="M 660,900 L 700,900" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<path d="M 980,900 L 1020,900" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="1000" y="892" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
-<path d="M 840,960 L 840,972" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="850" y="966" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
-<rect x="420" y="1142" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="540" y="1170">Paste URL, Load</tspan></text>
-<polygon points="840,1110 980,1170 840,1230 700,1170" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="840" y="1170">URL valid?</tspan></text>
-<rect x="1020" y="1142" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1140" y="1170">POST import</tspan></text>
-<polygon points="1440,1110 1580,1170 1440,1230 1300,1170" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1440" y="1170">Token resolves?</tspan></text>
-<rect x="1620" y="1142" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1740" y="1170">Render character</tspan></text>
-<rect x="720" y="1242" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="840" y="1270">Error: Invalid URL</tspan></text>
-<rect x="1320" y="1242" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1440" y="1270">Error: Link expired</tspan></text>
-<path d="M 300,1170 L 420,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="360" y="1162" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
-<path d="M 660,1170 L 700,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<path d="M 980,1170 L 1020,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="1000" y="1162" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
-<path d="M 1260,1170 L 1300,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<path d="M 1580,1170 L 1620,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="1600" y="1162" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
-<path d="M 840,1230 L 840,1242" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="850" y="1236" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
-<path d="M 1440,1230 L 1440,1242" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="1450" y="1236" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
-<polygon points="540,1460 680,1520 540,1580 400,1520" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="540" y="1520">Import in progress?</tspan></text>
-<rect x="720" y="1492" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="840" y="1512">Complete/abort</tspan><tspan x="840" y="1528">import</tspan></text>
-<rect x="420" y="1602" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="540" y="1630">Close modal</tspan></text>
+<rect x="480" y="612" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="600" y="640">Read URL</tspan></text>
+<rect x="840" y="612" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="960" y="640">Copy to clipboard</tspan></text>
+<rect x="1200" y="612" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1320" y="640">'Copied!' feedback</tspan></text>
+<path d="M 300,640 L 480,640" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="390" y="632" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
+<path d="M 720,640 L 840,640" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M 1080,640 L 1200,640" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="480" y="872" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="600" y="900">POST regenerate</tspan></text>
+<polygon points="960,840 1100,900 960,960 820,900" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="960" y="900">Success?</tspan></text>
+<rect x="1200" y="872" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1320" y="900">Show new link</tspan></text>
+<rect x="840" y="1032" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="960" y="1060">Show error</tspan></text>
+<path d="M 300,900 L 480,900" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="390" y="892" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
+<path d="M 720,900 L 820,900" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M 1100,900 L 1200,900" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1150" y="892" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
+<path d="M 960,960 L 960,1032" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="970" y="996" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
+<rect x="480" y="1142" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="600" y="1170">Paste URL, Load</tspan></text>
+<polygon points="960,1110 1100,1170 960,1230 820,1170" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="960" y="1170">URL valid?</tspan></text>
+<rect x="1200" y="1142" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1320" y="1170">POST import</tspan></text>
+<polygon points="1680,1110 1820,1170 1680,1230 1540,1170" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1680" y="1170">Token resolves?</tspan></text>
+<rect x="1920" y="1142" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="2040" y="1170">Render character</tspan></text>
+<rect x="840" y="1302" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="960" y="1330">Error: Invalid URL</tspan></text>
+<rect x="1560" y="1302" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="1680" y="1330">Error: Link expired</tspan></text>
+<path d="M 300,1170 L 480,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="390" y="1162" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
+<path d="M 720,1170 L 820,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M 1100,1170 L 1200,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1150" y="1162" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
+<path d="M 1440,1170 L 1540,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M 1820,1170 L 1920,1170" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1870" y="1162" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
+<path d="M 960,1230 L 960,1302" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="970" y="1266" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
+<path d="M 1680,1230 L 1680,1302" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1690" y="1266" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
+<polygon points="600,1460 740,1520 600,1580 460,1520" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="600" y="1520">Import in progress?</tspan></text>
+<rect x="840" y="1492" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="960" y="1512">Complete/abort</tspan><tspan x="960" y="1528">import</tspan></text>
+<rect x="480" y="1652" width="240" height="56" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="600" y="1680">Close modal</tspan></text>
 <rect x="60" y="1752" width="200" height="56" rx="28" ry="28" fill="#ffffff" stroke="#333333" stroke-width="2" />
 <text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="160" y="1780">Stop</tspan></text>
-<path d="M 300,1520 L 400,1520" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="350" y="1512" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
-<path d="M 680,1520 L 720,1520" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="700" y="1512" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
-<path d="M 540,1580 L 540,1602" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<text x="550" y="1591" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
-<path d="M 840,1548 L 840,1630 L 660,1630" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<path d="M 540,1658 L 540,1780 L 260,1780" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M 300,1520 L 460,1520" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="380" y="1512" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
+<path d="M 740,1520 L 840,1520" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="790" y="1512" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555555">yes</text>
+<path d="M 600,1580 L 600,1652" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<text x="610" y="1616" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
+<path d="M 960,1548 L 960,1680 L 720,1680" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M 600,1708 L 600,1780 L 260,1780" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
 <path d="M 160,1580 L 160,1752" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
 <text x="170" y="1666" text-anchor="start" font-family="sans-serif" font-size="12" fill="#555555">no</text>
 </svg>
