@@ -77,7 +77,7 @@ const SX = 110;
 state(SX, 140, 'Start');
 state(SX, 240, 'Modal Closed');
 state(SX, 340, 'Modal Opening');
-state(SX, 1000, 'Exit');
+state(210, 1000, 'Exit');
 
 composite(200, 420, 560, 900, 'Modal Ready');
 state(300, 500, 'Ready', 120, 46);
@@ -89,7 +89,7 @@ state(300, 800, 'Imported', 130, 46);
 // spine
 edge([[SX, 165], [SX, 215]]);
 edge([[60, 265], [60, 315]], { label: 'click "Exchange"', lx: 68, ly: 302, anchor: 'start' });
-edge([[SX, 365], [SX, 500], [240, 500]], { label: 'link + summary', lx: 163, ly: 488 });
+edge([[70, 365], [70, 500], [240, 500]], { label: 'link + summary', lx: 145, ly: 488 });
 
 // internal (bidirectional where the flow goes both ways)
 edge([[360, 500], [405, 500]], { both: true });
@@ -103,7 +103,7 @@ edge([[330, 477], [330, 282], [150, 282], [150, 265]], { label: 'close / abort',
 edge([[535, 700], [590, 700], [590, 290], [170, 290], [170, 265]], { label: 'import completed', lx: 420, ly: 278 });
 
 // closed -> exit (route around the far left, outside the composite)
-edge([[35, 240], [30, 240], [30, 1000], [35, 1000]], { label: 'modal destroyed', lx: 38, ly: 640, anchor: 'start' });
+edge([[35, 240], [30, 240], [30, 1000], [135, 1000]], { label: 'modal destroyed', lx: 38, ly: 640, anchor: 'start' });
 
 // ---------------- Region B: Share token ----------------
 const TX = 860;

@@ -16,8 +16,8 @@
 <text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="110" y="240">Modal Closed</tspan></text>
 <rect x="35" y="315" width="150" height="50" rx="10" ry="10" fill="#ffffff" stroke="#333333" stroke-width="2" />
 <text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="110" y="340">Modal Opening</tspan></text>
-<rect x="35" y="975" width="150" height="50" rx="10" ry="10" fill="#ffffff" stroke="#333333" stroke-width="2" />
-<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="110" y="1000">Exit</tspan></text>
+<rect x="135" y="975" width="150" height="50" rx="10" ry="10" fill="#ffffff" stroke="#333333" stroke-width="2" />
+<text text-anchor="middle" dominant-baseline="middle" font-family="sans-serif" font-size="13" fill="#111"><tspan x="210" y="1000">Exit</tspan></text>
 <rect x="200" y="420" width="360" height="480" rx="12" ry="12" fill="#fafafa" stroke="#333333" stroke-width="2" />
 <text x="214" y="442" font-family="sans-serif" font-size="13" font-weight="bold" fill="#333">Modal Ready</text>
 <rect x="240" y="477" width="120" height="46" rx="10" ry="10" fill="#ffffff" stroke="#333333" stroke-width="2" />
@@ -34,9 +34,9 @@
 <path d="M 60,265 L 60,315" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
 <rect x="68" y="293" width="110.4" height="16" fill="#ffffff" />
 <text x="72" y="305" text-anchor="start" font-family="sans-serif" font-size="11" fill="#444">click "Exchange"</text>
-<path d="M 110,365 L 110,500 L 240,500" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
-<rect x="114.19999999999999" y="479" width="97.60000000000001" height="16" fill="#ffffff" />
-<text x="163" y="491" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#444">link + summary</text>
+<path d="M 70,365 L 70,500 L 240,500" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="96.19999999999999" y="479" width="97.60000000000001" height="16" fill="#ffffff" />
+<text x="145" y="491" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#444">link + summary</text>
 <path d="M 360,500 L 405,500" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)" />
 <path d="M 300,523 L 300,600 L 405,600" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)" />
 <rect x="359" y="556" width="72" height="16" fill="#ffffff" />
@@ -52,7 +52,7 @@
 <path d="M 535,700 L 590,700 L 590,290 L 170,290 L 170,265" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
 <rect x="364.8" y="269" width="110.4" height="16" fill="#ffffff" />
 <text x="420" y="281" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#444">import completed</text>
-<path d="M 35,240 L 30,240 L 30,1000 L 35,1000" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M 35,240 L 30,240 L 30,1000 L 135,1000" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#arrow)" />
 <rect x="38" y="631" width="104" height="16" fill="#ffffff" />
 <text x="42" y="643" text-anchor="start" font-family="sans-serif" font-size="11" fill="#444">modal destroyed</text>
 <rect x="765" y="135" width="190" height="50" rx="10" ry="10" fill="#ffffff" stroke="#333333" stroke-width="2" />
