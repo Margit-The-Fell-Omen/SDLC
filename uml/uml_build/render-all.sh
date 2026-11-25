@@ -22,5 +22,14 @@ nix run nixpkgs#nodejs -- gen-state-svg.mjs state-diagram.svg
 echo "== use-case =="
 nix run nixpkgs#nodejs -- gen-usecase-svg.mjs use-case-diagram.svg
 
+echo "== class =="
+nix run nixpkgs#nodejs -- gen-class-svg.mjs class-diagram.svg
+
+echo "== component =="
+nix run nixpkgs#nodejs -- gen-component-svg.mjs component-diagram.svg
+
+echo "== deployment =="
+nix run nixpkgs#nodejs -- gen-deployment-svg.mjs deployment-diagram.svg
+
 echo "Done. Generated SVGs in $DIR:"
 ls -1 ./*.svg

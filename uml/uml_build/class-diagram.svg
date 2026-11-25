@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1420 900" width="1420" height="900" style="background-color:#ffffff">
+<defs>
+  <marker id="open" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#333333" stroke-width="1.5"/></marker>
+  <marker id="gen" markerWidth="14" markerHeight="14" refX="11" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L11,6 L0,12 Z" fill="#ffffff" stroke="#333333" stroke-width="1.4"/></marker>
+  <marker id="hollowDia" markerWidth="16" markerHeight="12" refX="8" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,6 L8,0 L16,6 L8,12 Z" fill="#ffffff" stroke="#333333" stroke-width="1.3"/></marker>
+  <marker id="filledDia" markerWidth="16" markerHeight="12" refX="1" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,6 L8,0 L16,6 L8,12 Z" fill="#333333"/></marker>
+</defs>
+<rect x="0" y="0" width="1420" height="900" fill="#ffffff" />
+<rect x="60" y="40" width="320" height="98" fill="#e6f4f9" stroke="#333333" stroke-width="1.6" />
+<text x="220" y="55" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">«interface»</text>
+<text x="220" y="76" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111111">ShareLinkApi</text>
+<line x1="60" y1="86" x2="380" y2="86" stroke="#333333" stroke-width="1.2" />
+<text x="68" y="103" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ getOrCreateLink(characterId: String): ShareLink</text>
+<text x="68" y="118" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ resolveToken(token: String): Character</text>
+<text x="68" y="133" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ regenerate(characterId: String): ShareLink</text>
+<rect x="60" y="320" width="320" height="106" fill="#e6f4f9" stroke="#333333" stroke-width="1.6" />
+<text x="220" y="341" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111111">ShareLinkService</text>
+<line x1="60" y1="352" x2="380" y2="352" stroke="#333333" stroke-width="1.2" />
+<text x="68" y="369" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">- store: LinkStore</text>
+<line x1="60" y1="374" x2="380" y2="374" stroke="#333333" stroke-width="1.2" />
+<text x="68" y="391" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ getOrCreateActiveToken(characterId: String): ShareToken</text>
+<text x="68" y="406" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ resolveToken(token: String): Character</text>
+<text x="68" y="421" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ regenerate(characterId: String): ShareToken</text>
+<rect x="60" y="620" width="320" height="106" fill="#e6f4f9" stroke="#333333" stroke-width="1.6" />
+<text x="220" y="641" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111111">LinkStore</text>
+<line x1="60" y1="652" x2="380" y2="652" stroke="#333333" stroke-width="1.2" />
+<text x="68" y="669" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">- links: Map&lt;String, ShareToken&gt;</text>
+<line x1="60" y1="674" x2="380" y2="674" stroke="#333333" stroke-width="1.2" />
+<text x="68" y="691" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ save(token: ShareToken): void</text>
+<text x="68" y="706" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ lookup(tokenHash: String): ShareToken</text>
+<text x="68" y="721" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ revoke(token: String): void</text>
+<rect x="480" y="320" width="320" height="91" fill="#e6f4f9" stroke="#333333" stroke-width="1.6" />
+<text x="640" y="341" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111111">ImportController</text>
+<line x1="480" y1="352" x2="800" y2="352" stroke="#333333" stroke-width="1.2" />
+<text x="488" y="369" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">- service: ShareLinkService</text>
+<line x1="480" y1="374" x2="800" y2="374" stroke="#333333" stroke-width="1.2" />
+<text x="488" y="391" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ importByUrl(url: String): Character</text>
+<text x="488" y="406" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">- validate(url: String): Boolean</text>
+<rect x="480" y="40" width="360" height="151" fill="#e6f4f9" stroke="#333333" stroke-width="1.6" />
+<text x="660" y="61" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111111">CharacterExchangeModal</text>
+<line x1="480" y1="72" x2="840" y2="72" stroke="#333333" stroke-width="1.2" />
+<text x="488" y="89" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">- activeCharacter: Character</text>
+<text x="488" y="104" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">- displayedUrl: String</text>
+<line x1="480" y1="109" x2="840" y2="109" stroke="#333333" stroke-width="1.2" />
+<text x="488" y="126" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ open(): void</text>
+<text x="488" y="141" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ renderSummary(c: Character): void</text>
+<text x="488" y="156" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ copyLink(): void</text>
+<text x="488" y="171" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ load(url: String): void</text>
+<text x="488" y="186" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ close(): void</text>
+<rect x="940" y="40" width="340" height="106" fill="#e6f4f9" stroke="#333333" stroke-width="1.6" />
+<text x="1110" y="61" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111111">ShareLinkManager</text>
+<line x1="940" y1="72" x2="1280" y2="72" stroke="#333333" stroke-width="1.2" />
+<text x="948" y="89" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">- clipboard: Clipboard</text>
+<line x1="940" y1="94" x2="1280" y2="94" stroke="#333333" stroke-width="1.2" />
+<text x="948" y="111" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ requestActiveLink(characterId: String): ShareLink</text>
+<text x="948" y="126" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ copyToClipboard(url: String): void</text>
+<text x="948" y="141" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ regenerate(): ShareLink</text>
+<rect x="940" y="320" width="340" height="196" fill="#e6f4f9" stroke="#333333" stroke-width="1.6" />
+<text x="1110" y="341" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111111">Character</text>
+<line x1="940" y1="352" x2="1280" y2="352" stroke="#333333" stroke-width="1.2" />
+<text x="948" y="369" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ avatar: String</text>
+<text x="948" y="384" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ name: String</text>
+<text x="948" y="399" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ race: String</text>
+<text x="948" y="414" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ clazz: String</text>
+<text x="948" y="429" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ level: int</text>
+<text x="948" y="444" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ hp: int</text>
+<text x="948" y="459" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ maxHp: int</text>
+<text x="948" y="474" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ mp: int</text>
+<text x="948" y="489" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ maxMp: int</text>
+<line x1="940" y1="494" x2="1280" y2="494" stroke="#333333" stroke-width="1.2" />
+<text x="948" y="511" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ summary(): String</text>
+<rect x="480" y="620" width="320" height="99" fill="#e6f4f9" stroke="#333333" stroke-width="1.6" />
+<text x="640" y="641" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#111111">ShareToken</text>
+<line x1="480" y1="652" x2="800" y2="652" stroke="#333333" stroke-width="1.2" />
+<text x="488" y="669" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ token: String</text>
+<text x="488" y="684" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ characterId: String</text>
+<text x="488" y="699" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ createdAt: Date</text>
+<text x="488" y="714" text-anchor="start" font-family="sans-serif" font-size="11" font-weight="normal" fill="#111111">+ revoked: boolean</text>
+<line x1="480" y1="719" x2="800" y2="719" stroke="#333333" stroke-width="1.2" />
+<path d="M 220,320 L 220,138" fill="none" stroke="#333333" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#gen)" />
+<path d="M 220,426 L 220,620" fill="none" stroke="#333333" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)" />
+<path d="M 480,669 L 380,669" fill="none" stroke="#333333" stroke-width="1.6" marker-end="url(#hollowDia)" />
+<path d="M 480,372 L 380,372" fill="none" stroke="#333333" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)" />
+<path d="M 840,110 L 940,110" fill="none" stroke="#333333" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)" />
+<path d="M 1110,146 L 1110,240 L 380,240 L 380,138" fill="none" stroke="#333333" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)" />
+<path d="M 660,191 L 660,280 L 1110,280 L 1110,320" fill="none" stroke="#333333" stroke-width="1.6" marker-end="url(#open)" />
+<path d="M 800,669 L 880,669 L 880,418 L 940,418" fill="none" stroke="#333333" stroke-width="1.6" marker-end="url(#open)" />
+</svg>
